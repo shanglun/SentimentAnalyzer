@@ -2,3 +2,7 @@
 *.iml
 *.class
 *.pyc
+java/SentimentAnalysis/target/*
+java/SentimentAnalysis/gen-py/*
+*.exe
+python/AnalyzerBot/gen-py/*
