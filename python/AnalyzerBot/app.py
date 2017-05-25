@@ -2,26 +2,27 @@ import os
 import datetime
 from flask import Flask, request
 from twilio.rest import Client
+import client
 
 on_call = os.getenv('ON_CALL')
-
-client = Client(os.getenv('TWILIO_ACCOUNT_KEY'), os.getenv('TWILIO_API_KEY'))
+twilio_client = Client(os.getenv('TWILIO_ACCOUNT_KEY'), os.getenv('TWILIO_API_KEY'))
 
 
 def send_message(body):
-    client.messages.create(
+    twilio_client.messages.create(
         to=on_call,
         from_=os.getenv('TWILIO_PHONE_NUMBER'),
         body=body
     )
 
 app = Flask(__name__)
-
+sentiment_client = client.SentimentClient()
 
 @app.route('/analyze', methods=['POST'])
 def analyze():
     with open('logfile.txt', 'a') as fp_log:
-        fp_log.write(str(request.form.get('text')))
+        fp_log.write(request.form.get('text'))
+        fp_log.write(sentiment_client.analyze(request.form.get('text')))
     return "Got it"
 
 
