@@ -46,7 +46,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>src.main.java.seanwang.SentimentServer</mainClass>
+              <mainClass>seanwang.SentimentServer</mainClass>
             </manifest>
           </archive>
         </configuration>
