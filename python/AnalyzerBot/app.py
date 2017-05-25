@@ -24,5 +24,9 @@ def analyze():
         fp_log.write('endpoint hit %s \n' % datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     return "Got it"
 
+@app.route('/')
+def health_check():
+    return "Alive"
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
