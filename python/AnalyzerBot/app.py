@@ -1,11 +1,11 @@
 import os
 import datetime
 from flask import Flask, request
-from twilio.rest import TwilioRestClient
+from twilio.rest import Client
 
 on_call = os.getenv('ON_CALL')
 
-client = TwilioRestClient(os.getenv('TWILIO_ACCOUNT_KEY'), os.getenv('TWILIO_API_KEY'))
+client = Client(os.getenv('TWILIO_ACCOUNT_KEY'), os.getenv('TWILIO_API_KEY'))
 
 
 def send_message(body):
