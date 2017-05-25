@@ -29,6 +29,8 @@ def analyze():
         if sentiment_client.analyze(sentence).rstrip() in ['Negative', 'Very negative']  # remove newline char
     ]
     urgent = len(negative_sentences) / len(sentences) > 0.75
+    if urgent:
+        send_message('Highly negative email received. Please take action.')
     with open('logfile.txt', 'a') as fp_log:
         fp_log.write("Received: " % request.form.get('text'))
         fp_log.write("urgent = %s" % (str(urgent)))
