@@ -30,8 +30,9 @@ def analyze():
     ]
     urgent = len(negative_sentences) / len(sentences) > 0.75
     with open('logfile.txt', 'a') as fp_log:
-        fp_log.write(request.form.get('text'))
+        fp_log.write("Received: " % request.form.get('text'))
         fp_log.write("urgent = %s" % (str(urgent)))
+        fp_log.write("\n")
 
     return "Got it"
 
