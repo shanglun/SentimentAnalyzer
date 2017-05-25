@@ -16,16 +16,17 @@ def send_message(body):
     )
 
 app = Flask(__name__)
-sentiment_client = client.SentimentClient()
+
 
 @app.route('/analyze', methods=['POST'])
 def analyze():
     text = str(request.form.get('text'))
+    sentiment_client = client.SentimentClient()
     text.replace('\n', '')  # remove all new lines
-    sentences = text.split('.')
+    sentences = text.rstrip('.').split('.')  # remove the last period before splitting
     negative_sentences = [
         sentence for sentence in sentences
-        if sentiment_client.analyze(sentence) in ['Negative', 'Very negative']
+        if sentiment_client.analyze(sentence).rstrip() in ['Negative', 'Very negative']  # remove newline char
     ]
     urgent = len(negative_sentences) / len(sentences) > 0.75
     with open('logfile.txt', 'a') as fp_log:
