@@ -22,7 +22,7 @@ sentiment_client = client.SentimentClient()
 def analyze():
     with open('logfile.txt', 'a') as fp_log:
         fp_log.write(request.form.get('text'))
-        fp_log.write(sentiment_client.analyze(request.form.get('text')))
+        fp_log.write(sentiment_client.analyze(str(request.form.get('text'))))
     return "Got it"
 
 
