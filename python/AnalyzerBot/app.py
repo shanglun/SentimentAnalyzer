@@ -20,9 +20,18 @@ sentiment_client = client.SentimentClient()
 
 @app.route('/analyze', methods=['POST'])
 def analyze():
+    text = str(request.form.get('text'))
+    text.replace('\n', '')  # remove all new lines
+    sentences = text.split('.')
+    negative_sentences = [
+        sentence for sentence in sentences
+        if sentiment_client.analyze(sentence) in ['Negative', 'Very negative']
+    ]
+    urgent = len(negative_sentences) / len(sentences) > 0.75
     with open('logfile.txt', 'a') as fp_log:
         fp_log.write(request.form.get('text'))
-        fp_log.write(sentiment_client.analyze(str(request.form.get('text'))))
+        fp_log.write("urgent = %s" % (str(urgent)))
+
     return "Got it"
 
 
