@@ -1,5 +1,19 @@
-from flask import Flask, request
+import os
 import datetime
+from flask import Flask, request
+from twilio.rest import TwilioRestClient
+
+on_call = os.getenv('ON_CALL')
+
+client = TwilioRestClient(os.getenv('TWILIO_ACCOUNT_KEY'), os.getenv('TWILIO_API_KEY'))
+
+
+def send_message(body):
+    client.messages.create(
+        to=on_call,
+        from_=os.getenv('TWILIO_PHONE_NUMBER'),
+        body=body
+    )
 
 app = Flask(__name__)
 
@@ -10,4 +24,5 @@ def analyze():
         fp_log.write('endpoint hit %s \n' % datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     return "Got it"
 
-app.run(debug=True)
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')
