@@ -7,7 +7,6 @@ import org.apache.thrift.transport.TServerTransport;
 
 public class SentimentServer {
     public static SentimentHandler handler;
-
     public static SentimentAnalysisService.Processor processor;
 
     public static void main(String [] args) {

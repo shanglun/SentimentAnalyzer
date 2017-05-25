@@ -1,13 +1,14 @@
 package seanwang;
 
-/**
- * Created by shang on 5/17/2017.
- */
 public class SentimentHandler implements SentimentAnalysisService.Iface {
+    SentimentAnalyzer analyzer;
+    SentimentHandler() {
+        analyzer = new SentimentAnalyzer();
+    }
 
     public String sentimentAnalyze(String sentence) {
         System.out.println("got: " + sentence);
-        return "Hello";
+        return analyzer.analyze(sentence);
     }
 
 }
