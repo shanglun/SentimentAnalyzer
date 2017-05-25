@@ -21,4 +21,4 @@ class SentimentClient:
 
 if __name__ == '__main__':
     client = SentimentClient()
-    print(client.analyze('Hello'))
+    print(client.analyze('This is an amazingly wonderful sentence'))
