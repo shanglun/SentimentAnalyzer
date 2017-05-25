@@ -21,7 +21,7 @@ app = Flask(__name__)
 @app.route('/analyze', methods=['POST'])
 def analyze():
     with open('logfile.txt', 'a') as fp_log:
-        fp_log.write(str(request.form))
+        fp_log.write(str(request.form.get('text')))
     return "Got it"
 
 
